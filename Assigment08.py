@@ -35,23 +35,23 @@ class Product:
 
     # -- Properties --
     # NAME
-    @property #getter
+    @property #GETTER
     def product_name(self):
-        return str(self.__product_name).product_name()
+        return str(self.__product_name)
 
-    @product_name.setter
+    @product_name.setter #SETTER
     def product_name(self, value):
         if str(value).isnumeric() == False:
-            self.__first_name = value
+            self.__product_name = value
         else:
             raise Exception("Product names cannot be numbers")
 
     # PRICE
-    @property
+    @property #GETTER
     def product_price(self):
-        return str(self.__product_price).product_price()
+        return str(self.__product_price)
 
-    @product_price.setter
+    @product_price.setter #SETTER
     def product_price(self, value):
         self.__product_price = value
 # Data -------------------------------------------------------------------- #
@@ -82,7 +82,10 @@ class FileProcessor:
         file = open(file_name, "r")
         for line in file:
             product, price = line.split(",")
+            product.strip()
+            price.strip()
             objProduct = Product(product, price)
+            # print(type(objProduct))
             list_of_product_objects.append(objProduct)
         file.close()
         return list_of_product_objects
@@ -98,7 +101,7 @@ class FileProcessor:
         try:
             f = open(file_name, "w")
             for item in list_of_product_objects:
-                f.write(item.product_name() + "," + item.product_price() + "\n")
+                f.write(item.product_name + "," + item.product_price + '\n')
             f.close()
         except:
             print('Unable to open/write to source file')
@@ -132,7 +135,7 @@ class IO:
         Menu of Options
         1) Show current list of products
         2) Add product to list
-        3) Save data to file and exit program   
+        3) Save data to file  
         4) Exit program without save    
         ''')
         print()  # Add an extra line
@@ -156,9 +159,9 @@ class IO:
         """
         print("******* Current Products: *******")
         for item in list_of_product_objects:
-            print(item.product_name() + ", " + item.product_price() + "\n")
+            print(item.product_name + ", " + item.product_price)
         print("*******************************************")
-        print()  # Add an extra line
+        # print()  # Add an extra line
 
     @staticmethod
     def input_yes_no_choice(message):
@@ -184,9 +187,14 @@ class IO:
 
         :return: Product object
         """
-        product = input("Please enter product name: ")
+        product = input("Please enter product name: ").upper()
         price = input("Product price: ")
-        price = float(price)
+        if price == '':
+            price = 0
+        # elif price is not float:
+        #     price = 0
+        else:
+            price = format(float(price), '.2f')
         objProduct = Product(product, price)
 
         return objProduct
