@@ -191,8 +191,6 @@ class IO:
         price = input("Product price: ")
         if price == '':
             price = 0
-        # elif price is not float:
-        #     price = 0
         else:
             price = format(float(price), '.2f')
         objProduct = Product(product, price)
@@ -212,8 +210,8 @@ class IO:
 # Main Body of Script  ---------------------------------------------------- #
 
 
-# Step 1 - When the program starts, Load data from ToDoFile.txt.
-FileProcessor.read_data_from_file(strFileName, lstOfProductObjects)  # read file data
+# Step 1 - When the program starts, Load data from products.txt.
+lstOfProductObjects = FileProcessor.read_data_from_file(strFileName, lstOfProductObjects)  # read file data
 
 # Step 2 - Display a menu of choices to the user
 while(True):
